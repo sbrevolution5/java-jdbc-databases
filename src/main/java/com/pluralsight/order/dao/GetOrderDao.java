@@ -61,7 +61,7 @@ public class GetOrderDao {
     private PreparedStatement createPreparedStatement(Connection con, long orderId) throws SQLException {
 
         PreparedStatement ps = con.prepareCall(query);
-        ps.setLong(0,orderId);
+        ps.setLong(1,orderId);
         return ps;
     }
 
