@@ -44,7 +44,7 @@ public class InsertOrderDao {
         ) {
 
             con.setAutoCommit(false);
-            ps.execute();
+            ps.executeUpdate();
             try (ResultSet result = ps.getGeneratedKeys()) {
                 if(result != null) {
                     if(!result.next()){
