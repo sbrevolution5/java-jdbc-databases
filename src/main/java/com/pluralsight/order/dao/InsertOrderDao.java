@@ -88,8 +88,7 @@ public class InsertOrderDao {
     private PreparedStatement createOrderPreparedStatement(Connection con, OrderDto orderDto) throws SQLException {
         PreparedStatement pr = con.prepareStatement(sqlOrder, Statement.RETURN_GENERATED_KEYS);
         pr.setLong(1,orderDto.getCustomerId());
-        Timestamp now = Timestamp.valueOf(LocalDateTime.now());
-        pr.setTimestamp(2,now);
+        pr.setTimestamp(2,Timestamp.valueOf(LocalDateTime.now()));
         pr.setObject(3, OrderStatus.CREATED);
         return pr;
     }
