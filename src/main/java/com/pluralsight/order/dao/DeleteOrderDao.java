@@ -34,7 +34,8 @@ public class DeleteOrderDao {
         try (Connection con = database.getConnection();
              PreparedStatement ps = createPreparedStatement(con, paramsDto.getOrderIds())
         ) {
-            ps.execute();
+            numberResults=ps.executeUpdate();
+
         } catch (SQLException ex) {
             ExceptionHandler.handleException(ex);
         }
@@ -48,7 +49,7 @@ public class DeleteOrderDao {
      * @return Delete SQL statement
      */
     private String buildDeleteSql(List<Long> orderIds) {
-        String ids = String.join(",",orderIds.toString());
+        String ids = String.join(",",orderIds.toString(),"?");
 
         return "DELETE FROM orders o WHERE o.order_id IN (" + ids + ")";
     }
