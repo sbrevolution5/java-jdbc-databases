@@ -31,10 +31,10 @@ public class DeleteOrderDao {
     public int deleteOrdersById(ParamsDto paramsDto) {
         int numberResults = 0;
 
-        try (Connection con = null;
+        try (Connection con = database.getConnection();
              PreparedStatement ps = createPreparedStatement(con, paramsDto.getOrderIds())
         ) {
-
+            ps.execute();
         } catch (SQLException ex) {
             ExceptionHandler.handleException(ex);
         }
@@ -48,7 +48,7 @@ public class DeleteOrderDao {
      * @return Delete SQL statement
      */
     private String buildDeleteSql(List<Long> orderIds) {
-        String ids = null;
+        String ids = String.join(",",orderIds.toString());
 
         return "DELETE FROM orders o WHERE o.order_id IN (" + ids + ")";
     }
@@ -62,7 +62,7 @@ public class DeleteOrderDao {
      */
     private PreparedStatement createPreparedStatement(Connection con, List<Long> orderIds) throws SQLException {
         String sql = buildDeleteSql(orderIds);
-        PreparedStatement ps = null;
+        PreparedStatement ps = con.prepareStatement(sql);
 
         return ps;
     }
