@@ -89,7 +89,7 @@ public class InsertOrderDao {
         PreparedStatement pr = con.prepareStatement(sqlOrder, Statement.RETURN_GENERATED_KEYS);
         pr.setLong(1,orderDto.getCustomerId());
         pr.setTimestamp(2,Timestamp.valueOf(LocalDateTime.now()));
-        pr.setObject(3, OrderStatus.CREATED);
+        pr.setObject(3, OrderStatus.CREATED.getStatus());
         return pr;
     }
 
